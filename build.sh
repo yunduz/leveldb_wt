@@ -2,7 +2,8 @@
 # Build Wired Tiger Level DB benchmark.
 # Assumes that a pre-built Wired Tiger library exists in ../wiredtiger.
 
-WTOPT_PATH="../wiredtiger/build_posix"
+# WTOPT_PATH="../wiredtiger/build_posix"
+WTOPT_PATH="/cs/systems/home/yra3/repos/wiredtiger"
 WTDBG_PATH="../wiredtiger.dbg/build_posix"
 BDB_PATH="../db-5.3.21/build_unix"
 BASHO_PATH="../basho.leveldb"

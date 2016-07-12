@@ -805,6 +805,11 @@ class Benchmark {
     config.str("");
     if (!FLAGS_use_existing_db)
       config << "create";
+#if 1
+    config << ",statistics=(all)";
+
+    config << ",statistics=(fast)";
+#endif
     if (FLAGS_cache_size > 0)
       config << ",cache_size=" << FLAGS_cache_size;
     /* TODO: Translate write_buffer_size - maybe it's chunk size?
