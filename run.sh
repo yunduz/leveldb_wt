@@ -9,10 +9,9 @@ BASHO_PATH="../basho.leveldb"
 BDB_PATH="../db-5.3.21/build_unix"
 MDB_PATH="../mdb/libraries/liblmdb"
 SNAPPY_PATH="ext/compressors/snappy/.libs/"
-# SNAPPY_PATH="/cs/systems/home/yra3/repos/wiredtiger/build_posix/ext/compressors/snappy/.libs/"
 WTDBG_PATH="../wiredtiger.dbg/build_posix"
 # WTOPT_PATH="../wiredtiger/build_posix"
-WTOPT_PATH="/cs/systems/home/yra3/repos/wiredtiger"
+WTOPT_PATH="/cs/systems/home/yra3/repos/wiredtiger_before_stats_change"
 
 test_compress()
 {
