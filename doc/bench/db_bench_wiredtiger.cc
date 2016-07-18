@@ -288,13 +288,20 @@ class Stats {
       // elapsed times.
       double elapsed = (finish_ - start_) * 1e-6;
       char rate[100];
-      snprintf(rate, sizeof(rate), "%6.1f MB/s",
+      // snprintf(rate, sizeof(rate), "%6.1f MB/s",
+      //          (bytes_ / 1048576.0) / elapsed);
+      snprintf(rate, sizeof(rate), "%6.1f ",
                (bytes_ / 1048576.0) / elapsed);
       extra = rate;
     }
     AppendWithSpace(&extra, message_);
 
-    fprintf(stdout, "%-12s : %11.3f micros/op;%s%s\n",
+    // fprintf(stdout, "%-12s : %11.3f micros/op;%s%s\n",
+    //         name.ToString().c_str(),
+    //         seconds_ * 1e6 / done_,
+    //         (extra.empty() ? "" : " "),
+    //         extra.c_str());
+    fprintf(stdout, "%-12s  %11.3f %s%s\t",
             name.ToString().c_str(),
             seconds_ * 1e6 / done_,
             (extra.empty() ? "" : " "),
@@ -709,6 +716,7 @@ class Benchmark {
       arg[0].thread->stats.Merge(arg[i].thread->stats);
     }
     arg[0].thread->stats.Report(name);
+    printf("%d\n", n);
 
     for (int i = 0; i < n; i++) {
       delete arg[i].thread;
