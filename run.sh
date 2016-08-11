@@ -11,7 +11,7 @@ MDB_PATH="../mdb/libraries/liblmdb"
 SNAPPY_PATH="ext/compressors/snappy/.libs/"
 WTDBG_PATH="../wiredtiger.dbg/build_posix"
 # WTOPT_PATH="../wiredtiger/build_posix"
-WTOPT_PATH="/cs/systems/home/yra3/repos/wiredtiger_before_stats_change"
+WTOPT_PATH="/cs/systems/home/yra3/repos/wiredtiger_use_rlu_extension"
 
 test_compress()
 {

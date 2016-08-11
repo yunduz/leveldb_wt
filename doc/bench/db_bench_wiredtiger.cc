@@ -808,6 +808,8 @@ class Benchmark {
 
   /* Start Wired Tiger modified section. */
   void Open() {
+    // yunduz print
+    // printf("LLLLLLLL Open()\n");
 #define SMALL_CACHE 10*1024*1024
     std::stringstream config;
     config.str("");
@@ -951,6 +953,11 @@ class Benchmark {
   }
 
   void ReadSequential(ThreadState* thread) {
+    pthread_t self;
+    self = pthread_self();
+    //yunduz print
+    // fprintf(stdout, "+++ tid: %p\n", (void *)self);
+
     const char *ckey, *cvalue;
     char key[100];
     WT_CURSOR *cursor;
