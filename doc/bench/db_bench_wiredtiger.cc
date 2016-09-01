@@ -139,6 +139,12 @@ static int FLAGS_max_compact_wait = 1200;
 // Use the db with the following name.
 static const char* FLAGS_db = NULL;
 
+// Use this amount of microseconds as a stats read interval
+static uint64_t FLAGS_wait = 1000000; //default is 1 second
+
+// Read statistics counter with interval FLAGS_wait
+static int FLAGS_read_stats = 0;
+
 #ifdef RAND_SHUFFLE
 static int *shuff = NULL;
 #endif
@@ -278,6 +284,7 @@ class Stats {
   }
 
   void Report(const Slice& name) {
+    double elapsed_time = 0;
     // Pretend at least one op was done in case we are running a benchmark
     // that does not call FinishedSingleOp().
     if (done_ < 1) done_ = 1;
@@ -293,6 +300,7 @@ class Stats {
       snprintf(rate, sizeof(rate), "%6.1f ",
                (bytes_ / 1048576.0) / elapsed);
       extra = rate;
+      elapsed_time = elapsed;
     }
     AppendWithSpace(&extra, message_);
 
@@ -306,6 +314,9 @@ class Stats {
             seconds_ * 1e6 / done_,
             (extra.empty() ? "" : " "),
             extra.c_str());
+    // yunduz print
+    // elapsed time
+    fprintf(stdout, "%f\t%d\t%" PRId64 "\t", elapsed_time, FLAGS_read_stats, FLAGS_wait);
     if (FLAGS_histogram) {
       fprintf(stdout, "Microseconds per op:\n%s\n", hist_.ToString().c_str());
     }
@@ -817,6 +828,16 @@ class Benchmark {
     config << ",statistics=(all)";
 
     config << ",statistics=(fast)";
+
+    if(FLAGS_read_stats)
+    {
+      // printf("will read stat counters, wait is %" PRIu64 "\n", FLAGS_wait);
+      config << ",statistics_log=(wait=" << FLAGS_wait << ",path=/cs/systems/home/yra3/repos/leveldb_wt_point_before_stats_change/stat_logs/log.%m.%d.%y)";
+    }
+    else
+    {
+      // printf("will not read stat counters\n");
+    }
 #endif
     if (FLAGS_cache_size > 0)
       config << ",cache_size=" << FLAGS_cache_size;
@@ -1336,6 +1357,7 @@ int main(int argc, char** argv) {
   for (int i = 1; i < argc; i++) {
     double d;
     int n;
+    uint64_t wait_interval;
     char junk;
     if (leveldb::Slice(argv[i]).starts_with("--benchmarks=")) {
       FLAGS_benchmarks = argv[i] + strlen("--benchmarks=");
@@ -1373,6 +1395,11 @@ int main(int argc, char** argv) {
       FLAGS_open_files = n;
     } else if (strncmp(argv[i], "--db=", 5) == 0) {
       FLAGS_db = argv[i] + 5;
+    } else if (sscanf(argv[i], "--read_stats=%d%c", &n, &junk) == 1 &&
+               (n == 0 || n == 1)) {
+      FLAGS_read_stats = n;
+    } else if (sscanf(argv[i], "--wait=%d%c", &wait_interval, &junk) == 1) {
+      FLAGS_wait = wait_interval;
     } else {
       fprintf(stderr, "Invalid flag '%s'\n", argv[i]);
       exit(1);
