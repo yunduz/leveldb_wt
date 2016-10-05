@@ -3,7 +3,7 @@
 # Assumes that a pre-built Wired Tiger library exists in ../wiredtiger.
 
 # WTOPT_PATH="../wiredtiger/build_posix"
-WTOPT_PATH="/cs/systems/home/yra3/repos/wiredtiger_use_rlu_extension"
+WTOPT_PATH="/cs/systems/home/yra3/repos/wiredtiger_use_rlu_strict"
 WTDBG_PATH="../wiredtiger.dbg/build_posix"
 BDB_PATH="../db-5.3.21/build_unix"
 BASHO_PATH="../basho.leveldb"

@@ -41,7 +41,7 @@ def process_log():
             #print line
             if line: #if line was not an empty line
                 #print line
-                freq = int(line[5])
+                freq = int(line[5]) # read frequency
                 if freq not in experiment_runs:
                     experiment_runs[freq] = ([], [], [], [], [])
                 experiment_runs[freq][0].append(float(line[1])) # micros/op
