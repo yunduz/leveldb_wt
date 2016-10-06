@@ -834,7 +834,7 @@ class Benchmark {
     if(FLAGS_read_stats)
     {
       // printf("will read stat counters, wait is %" PRIu64 "\n", FLAGS_wait);
-      config << ",statistics_log=(wait=" << FLAGS_wait << ",path=/cs/systems/home/yra3/repos/leveldb_wt_point_use_rlu_strict/stat_logs/log.%m.%d.%y)";
+      config << ",statistics_log=(wait=" << FLAGS_wait << ",path=/cs/systems/home/yra3/repos/leveldb_wt_point_use_rlu_both/stat_logs/log.%m.%d.%y)";
     }
     else
     {

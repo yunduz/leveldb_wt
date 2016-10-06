@@ -3,7 +3,8 @@
 # Assumes that a pre-built Wired Tiger library exists in ../wiredtiger.
 
 # WTOPT_PATH="../wiredtiger/build_posix"
-WTOPT_PATH="/cs/systems/home/yra3/repos/wiredtiger_use_rlu_strict"
+WTOPT_PATH="/cs/systems/home/yra3/repos/wiredtiger_use_rlu_both"
+RLU_EXT_PATH="/cs/systems/home/yra3/repos/scalable-sync/rlu_relaxed_extension/lib"
 WTDBG_PATH="../wiredtiger.dbg/build_posix"
 BDB_PATH="../db-5.3.21/build_unix"
 BASHO_PATH="../basho.leveldb"
@@ -38,7 +39,8 @@ if test -f doc/bench/db_bench_wiredtiger.cc; then
 
     rm -f doc/bench/db_bench_wiredtiger.o
     echo "Making standard WT benchmark"
-    env LDFLAGS="-L$WT_PATH/.libs" CXXFLAGS="-I$WT_PATH" make db_bench_wiredtiger
+    env LD_LIBRARY_PATH="$WT_PATH/.libs:$WT_PATH/SNAPPY_PATH:$RLU_EXT_PATH" LDFLAGS="-L$WT_PATH/.libs" CXXFLAGS="-I$WT_PATH" make db_bench_wiredtiger
+    # env LDFLAGS="-L$WT_PATH/.libs -L$WT_PATH/SNAPPY_PATH -L$RLU_EXT_PATH" CXXFLAGS="-I$WT_PATH -I$WT_PATH/ext/compressors/snappy -I$RLU_EXT_PATH" make db_bench_wiredtiger
 fi
 
 if test -e $BASHO_PATH; then
